@@ -26,7 +26,7 @@ favicon:
 keywords: "Hexo, NexT"
 
 # Set language
-language: zh-Hans
+#language: zh-Hans
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
