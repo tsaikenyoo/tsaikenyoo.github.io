@@ -353,7 +353,7 @@ han: false
 # Disqus
 disqus:
   enable: true
-  shortname: https-tsaikenyoo-github-io-1.disqus.com
+  shortname: hexo-github
   count: true
 
 # Hypercomments
