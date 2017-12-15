@@ -25,6 +25,8 @@ favicon:
 # Set default keywords (Use a comma to separate)
 keywords: "Hexo, NexT"
 
+# Set avatar
+avatar: /images/avatar.png
 # Set language
 #language: zh-Hans
 
@@ -723,6 +725,11 @@ vendors:
   # https://github.com/ethantw/Han
   han:
 
+# leancloud
+leancloud_visitors:
+  enable: true
+  app_id: 3cbmwwNVnmxIToIDmbyxEy2D-gzGzoHsz
+  app_key: pXqDoLHaKw4en67FCQcxtd0g
 
 # Assets
 css: css
