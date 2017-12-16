@@ -17,14 +17,14 @@ categories:
 
 其中 EXIT_FAILURE 在 \<cstdlib\> 头文件中定义：
 
-```
+```cpp
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
 ```
 
 示例如下：
 
-```
+```cpp
 void a(){
 	throw exception();
 }
