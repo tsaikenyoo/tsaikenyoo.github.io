@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在平时写 C++ 程序的时候，希望程序在条件异常的时候直接退出。而条件异常的捕获通常不是在 main 函数中完成的，那么此时该如何退出程序呢？ 如果在 main 函数中捕获了异常，直接 return 1; 即可，但是若在非 main 函数中，调用 return;则只会退出该函数。 比较直观的一种做法就是直接调用 exit(0);，表示程序非正常退出。但实际上，这种做法并不安全。我们知道，在程序结束">
+<meta name="description" content="C++ 中引用 &amp;amp; 与指针 * 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？ 指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。 那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 运算符重载 的问题。举个例子，使用 C++">
 <meta name="keywords" content="CPP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何退出C++程序">
-<meta property="og:url" content="http://yoursite.com/2017/12/15/如何退出C++程序/index.html">
+<meta property="og:title" content="C++中引用与指针">
+<meta property="og:url" content="http://yoursite.com/2017/12/17/C++中引用与指针/index.html">
 <meta property="og:site_name" content="和光同尘">
-<meta property="og:description" content="在平时写 C++ 程序的时候，希望程序在条件异常的时候直接退出。而条件异常的捕获通常不是在 main 函数中完成的，那么此时该如何退出程序呢？ 如果在 main 函数中捕获了异常，直接 return 1; 即可，但是若在非 main 函数中，调用 return;则只会退出该函数。 比较直观的一种做法就是直接调用 exit(0);，表示程序非正常退出。但实际上，这种做法并不安全。我们知道，在程序结束">
+<meta property="og:description" content="C++ 中引用 &amp;amp; 与指针 * 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？ 指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。 那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 运算符重载 的问题。举个例子，使用 C++">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-16T11:44:11.000Z">
+<meta property="og:updated_time" content="2017-12-20T07:27:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何退出C++程序">
-<meta name="twitter:description" content="在平时写 C++ 程序的时候，希望程序在条件异常的时候直接退出。而条件异常的捕获通常不是在 main 函数中完成的，那么此时该如何退出程序呢？ 如果在 main 函数中捕获了异常，直接 return 1; 即可，但是若在非 main 函数中，调用 return;则只会退出该函数。 比较直观的一种做法就是直接调用 exit(0);，表示程序非正常退出。但实际上，这种做法并不安全。我们知道，在程序结束">
+<meta name="twitter:title" content="C++中引用与指针">
+<meta name="twitter:description" content="C++ 中引用 &amp;amp; 与指针 * 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？ 指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。 那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 运算符重载 的问题。举个例子，使用 C++">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/15/如何退出C++程序/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/17/C++中引用与指针/"/>
 
 
 
 
 
-  <title>如何退出C++程序 | 和光同尘</title>
+  <title>C++中引用与指针 | 和光同尘</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/15/如何退出C++程序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/C++中引用与指针/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Caijianyu">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何退出C++程序</h1>
+          <h1 class="post-title" itemprop="name headline">C++中引用与指针</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-15T20:11:51+08:00">
-                2017-12-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-17T22:12:20+08:00">
+                2017-12-17
               </time>
             
 
@@ -323,9 +323,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/15/如何退出C++程序/#comments" itemprop="discussionUrl">
+                <a href="/2017/12/17/C++中引用与指针/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/15/如何退出C++程序/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/12/17/C++中引用与指针/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -333,7 +333,7 @@
 
           
           
-             <span id="/2017/12/15/如何退出C++程序/" class="leancloud_visitors" data-flag-title="如何退出C++程序">
+             <span id="/2017/12/17/C++中引用与指针/" class="leancloud_visitors" data-flag-title="C++中引用与指针">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -364,14 +364,27 @@
       
 
       
-        <p>在平时写 C++ 程序的时候，希望程序在条件异常的时候直接退出。而条件异常的捕获通常不是在 main 函数中完成的，那么此时该如何退出程序呢？</p>
-<p>如果在 main 函数中捕获了异常，直接 <code>return 1;</code> 即可，但是若在非 main 函数中，调用 <code>return;</code>则只会退出该函数。</p>
-<p>比较直观的一种做法就是直接调用 <code>exit(0);</code>，表示程序非正常退出。但实际上，这种做法并不安全。我们知道，在程序结束时，栈中所有的对象都会调用析构函数来释放内存空间。但是 <code>exit(0);</code> 则会直接退出程序，并不会去管栈中尚未释放的对象。</p>
-<p>要保证栈中的对象所占的内存空间被释放，则必须在 main 函数中调用 <code>return</code> 函数。因此最合理的做法是，在需要退出程序的地方调用 <code>throw exception();</code>，在 main 函数中则使用 try、catch，在 catch 块中调用 <code>return EXIT_FAILURE;</code></p>
-<p>其中 EXIT_FAILURE 在 <code>&lt;cstdlib&gt;</code> 头文件中定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXIT_SUCCESS 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXIT_FAILURE 1</span></span><br></pre></td></tr></table></figure>
-<p>示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> exception();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        a();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span>(<span class="keyword">const</span> exception&amp;)&#123;</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>C++ 中引用 <code>&amp;</code> 与指针 <code>*</code> 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？</p>
+<p>指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。</p>
+<p>那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 <strong>运算符重载</strong> 的问题。举个例子，使用 C++ 定义了一个类 <code>ArrayLike</code>，我们希望这个类能像数组一样使用下标取元素，即 <code>arr[0]</code>。那么此时就需要对运算符 <code>[]</code> 进行重载。</p>
+<p>那么问题来了，重载的运算符的返回值是什么呢？假设 <code>ArrayLike</code> 储存的数据类型为 <code>int</code>，该运算符可以返回 <code>int</code> 类型，但有时我们希望通过下标赋值，如 <code>a[1]=2;</code>，此时 <code>int</code>作为返回值显然不合适，此时显然只能返回指针 <code>int*</code>。但若是返回 <code>int*</code>，则按下标取到的内容只是地址，所以还需要增加取值符来获取内容，如 <code>*(a[5])</code>。</p>
+<p>因此，引用被发明了出来。在运算符重载中，引用具有指针的可赋值功能，也无需对结果增加取值符。例子如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayLike</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span>* arr;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ArrayLike()&#123;...&#125;</span><br><span class="line">    ~ArrayLike()&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// return int</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int*</span></span><br><span class="line">    <span class="keyword">int</span>* <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int&amp;</span></span><br><span class="line">    <span class="keyword">int</span>&amp; <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当然，在实际应用中，引用和指针更多地被用于 <code>避免值拷贝</code>，在这一点上两者的功能十分相似。</p>
+<p>一、在声明变量时避免值拷贝。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use pointer</span></span><br><span class="line"><span class="keyword">int</span>* a_ptr = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use reference</span></span><br><span class="line"><span class="keyword">int</span>&amp; a_ref = a;</span><br></pre></td></tr></table></figure>
+<p>二、在传参时避免值拷贝</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pointer param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>* param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// reference param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; param)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在传参时避免值拷贝，是指针和引用作为参数被传递的重要原因之一。当然，这样传递参数有一个潜在的危险之处，即指针或引用的值可能会被悄悄修改。那么，如何避免这样的风险呢？这个时候，引用的优势就体现出来了。</p>
+<p>对于引用来说，直接使用 <code>const type&amp;</code> 作为参数即可。这就明确地说明了参数是不可修改的。</p>
+<p>而对于指针来说，则十分麻烦。<code>const type*</code> 只能避免指针不指向别的对象，但是不能阻止对指针指向的内存区域的值的修改，如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>* int_ptr)</span></span>&#123;</span><br><span class="line">*int_ptr = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了以上的情形，与指针相比，引用还有一个优点。指针是可以为空的，即 <code>NULL</code>，那么此时如果对指针取值，则会报错。因此，指针是具有很大的潜在风险的。而引用就没有这个风险，引用在定义的时候就必须初始化，也就是说，引用总是引用某个存在的变量。实际上，引用内部的实现就是通过 <code>const type*</code> 来实现的。</p>
+<p>综上，何时该用指针？何时该用引用呢？在 StackOverflow 上看到了一句建议：</p>
+<blockquote>
+<p>Use reference when you can, use pointer when you must</p>
+</blockquote>
+<p>毕竟有些地方指针的作用还是难以替代的，例如多态中的强制类型转换。</p>
 
       
     </div>
@@ -402,15 +415,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/12/15/如何退出C++程序/" rel="next" title="如何退出C++程序">
+                <i class="fa fa-chevron-left"></i> 如何退出C++程序
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/17/C++中引用与指针/" rel="prev" title="C++中引用与指针">
-                C++中引用与指针 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -679,9 +692,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/12/15/如何退出C++程序/';
-          this.page.identifier = '2017/12/15/如何退出C++程序/';
-          this.page.title = '如何退出C++程序';
+          this.page.url = 'http://yoursite.com/2017/12/17/C++中引用与指针/';
+          this.page.identifier = '2017/12/17/C++中引用与指针/';
+          this.page.title = 'C++中引用与指针';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://hexo-github.disqus.com/embed.js';
