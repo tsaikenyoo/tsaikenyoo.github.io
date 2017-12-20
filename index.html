@@ -249,6 +249,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/C++中引用与指针/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Caijianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="和光同尘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/17/C++中引用与指针/" itemprop="url">C++中引用与指针</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-17T22:12:20+08:00">
+                2017-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码随录/" itemprop="url" rel="index">
+                    <span itemprop="name">代码随录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/17/C++中引用与指针/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/17/C++中引用与指针/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/12/17/C++中引用与指针/" class="leancloud_visitors" data-flag-title="C++中引用与指针">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>C++ 中引用 <code>&amp;</code> 与指针 <code>*</code> 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？</p>
+<p>指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。</p>
+<p>那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 <strong>运算符重载</strong> 的问题。举个例子，使用 C++ 定义了一个类 <code>ArrayLike</code>，我们希望这个类能像数组一样使用下标取元素，即 <code>arr[0]</code>。那么此时就需要对运算符 <code>[]</code> 进行重载。</p>
+<p>那么问题来了，重载的运算符的返回值是什么呢？假设 <code>ArrayLike</code> 储存的数据类型为 <code>int</code>，该运算符可以返回 <code>int</code> 类型，但有时我们希望通过下标赋值，如 <code>a[1]=2;</code>，此时 <code>int</code>作为返回值显然不合适，此时显然只能返回指针 <code>int*</code>。但若是返回 <code>int*</code>，则按下标取到的内容只是地址，所以还需要增加取值符来获取内容，如 <code>*(a[5])</code>。</p>
+<p>因此，引用被发明了出来。在运算符重载中，引用具有指针的可赋值功能，也无需对结果增加取值符。例子如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayLike</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span>* arr;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ArrayLike()&#123;...&#125;</span><br><span class="line">    ~ArrayLike()&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// return int</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int*</span></span><br><span class="line">    <span class="keyword">int</span>* <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int&amp;</span></span><br><span class="line">    <span class="keyword">int</span>&amp; <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当然，在实际应用中，引用和指针更多地被用于 <code>避免值拷贝</code>，在这一点上两者的功能十分相似。</p>
+<p>一、在声明变量时避免值拷贝。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use pointer</span></span><br><span class="line"><span class="keyword">int</span>* a_ptr = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use reference</span></span><br><span class="line"><span class="keyword">int</span>&amp; a_ref = a;</span><br></pre></td></tr></table></figure>
+<p>二、在传参时避免值拷贝</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pointer param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>* param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// reference param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; param)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在传参时避免值拷贝，是指针和引用作为参数被传递的重要原因之一。当然，这样传递参数有一个潜在的危险之处，即指针或引用的值可能会被悄悄修改。那么，如何避免这样的风险呢？这个时候，引用的优势就体现出来了。</p>
+<p>对于引用来说，直接使用 <code>const type&amp;</code> 作为参数即可。这就明确地说明了参数是不可修改的。</p>
+<p>而对于指针来说，则十分麻烦。<code>const type*</code> 只能避免指针不指向别的对象，但是不能阻止对指针指向的内存区域的值的修改，如</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>* int_ptr)</span></span>&#123;</span><br><span class="line">*int_ptr = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了以上的情形，与指针相比，引用还有一个优点。指针是可以为空的，即 <code>NULL</code>，那么此时如果对指针取值，则会报错。因此，指针是具有很大的潜在风险的。而引用就没有这个风险，引用在定义的时候就必须初始化，也就是说，引用总是引用某个存在的变量。实际上，引用内部的实现就是通过 <code>const type*</code> 来实现的。</p>
+<p>综上，何时该用指针？何时该用引用呢？在 StackOverflow 上看到了一句建议：</p>
+<blockquote>
+<p>Use reference when you can, use pointer when you must</p>
+</blockquote>
+<p>毕竟有些地方指针的作用还是难以替代的，例如多态中的强制类型转换。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/15/如何退出C++程序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +641,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
