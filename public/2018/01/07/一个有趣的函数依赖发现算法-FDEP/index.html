@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="和光同尘">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="前段时间，和同学报名参加了云计算大赛，命题赛里第二题要求实现一个 可并行化 的函数依赖发现算法，我在学长的推荐下阅读了两篇论文，并使用 Scala + Spark 实现了一个函数依赖发现算法。个人觉得这个算法的思想十分有趣，故写下此篇博客，作为记录。 函数依赖函数依赖的定义不在此给出，可参考赛题介绍 链接。 综述论文关于函数依赖发现算法，有这样一篇综述性论文 Functional Dependen">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个有趣的函数依赖发现算法: FDEP">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/一个有趣的函数依赖发现算法-FDEP/index.html">
 <meta property="og:site_name" content="和光同尘">
+<meta property="og:description" content="前段时间，和同学报名参加了云计算大赛，命题赛里第二题要求实现一个 可并行化 的函数依赖发现算法，我在学长的推荐下阅读了两篇论文，并使用 Scala + Spark 实现了一个函数依赖发现算法。个人觉得这个算法的思想十分有趣，故写下此篇博客，作为记录。 函数依赖函数依赖的定义不在此给出，可参考赛题介绍 链接。 综述论文关于函数依赖发现算法，有这样一篇综述性论文 Functional Dependen">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-29T02:43:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="和光同尘">
+<meta name="twitter:title" content="一个有趣的函数依赖发现算法: FDEP">
+<meta name="twitter:description" content="前段时间，和同学报名参加了云计算大赛，命题赛里第二题要求实现一个 可并行化 的函数依赖发现算法，我在学长的推荐下阅读了两篇论文，并使用 Scala + Spark 实现了一个函数依赖发现算法。个人觉得这个算法的思想十分有趣，故写下此篇博客，作为记录。 函数依赖函数依赖的定义不在此给出，可参考赛题介绍 链接。 综述论文关于函数依赖发现算法，有这样一篇综述性论文 Functional Dependen">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/07/一个有趣的函数依赖发现算法-FDEP/"/>
 
 
 
 
 
-  <title>和光同尘</title>
+  <title>一个有趣的函数依赖发现算法: FDEP | 和光同尘</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/07/一个有趣的函数依赖发现算法-FDEP/" itemprop="url">一个有趣的函数依赖发现算法: FDEP</a></h1>
+          <h1 class="post-title" itemprop="name headline">一个有趣的函数依赖发现算法: FDEP</h1>
         
 
         <div class="post-meta">
@@ -362,9 +364,7 @@
       
 
       
-        
-          
-            <p>前段时间，和同学报名参加了云计算大赛，命题赛里第二题要求实现一个 <strong>可并行化</strong> 的函数依赖发现算法，我在学长的推荐下阅读了两篇论文，并使用 Scala + Spark 实现了一个函数依赖发现算法。个人觉得这个算法的思想十分有趣，故写下此篇博客，作为记录。</p>
+        <p>前段时间，和同学报名参加了云计算大赛，命题赛里第二题要求实现一个 <strong>可并行化</strong> 的函数依赖发现算法，我在学长的推荐下阅读了两篇论文，并使用 Scala + Spark 实现了一个函数依赖发现算法。个人觉得这个算法的思想十分有趣，故写下此篇博客，作为记录。</p>
 <h2 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h2><p>函数依赖的定义不在此给出，可参考赛题介绍 <a href="https://cloud.seu.edu.cn/contest/assets/img/f4/JN2.pdf" target="_blank" rel="noopener">链接</a>。</p>
 <h2 id="综述论文"><a href="#综述论文" class="headerlink" title="综述论文"></a>综述论文</h2><p>关于函数依赖发现算法，有这样一篇综述性论文 <em>Functional Dependency Discovery:<br>An Experimental Evaluation of Seven Algorithms</em>，论文中介绍并对比了 7 种函数依赖发现算法，我选择了其中的 FDEP 算法进行实现。</p>
 <h2 id="FDEP"><a href="#FDEP" class="headerlink" title="FDEP"></a>FDEP</h2><p>FDEP 的论文可参见 <em>Database dependency discovery: a machine learning approach</em>。</p>
@@ -394,8 +394,6 @@
 <p>附代码如下：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"><span class="keyword">import</span> util.control.<span class="type">Breaks</span>._</span><br><span class="line"><span class="keyword">import</span> scala.collection.mutable</span><br><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">		<span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"FunctionDependency"</span>)</span><br><span class="line">		<span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">val</span> dataPath = args(<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">val</span> resultPath = args(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">val</span> tmpPath = args(<span class="number">2</span>)</span><br><span class="line">		<span class="keyword">val</span> dataset = sc.textFile(dataPath,<span class="number">1</span>)</span><br><span class="line">			.map(line =&gt; line.split(<span class="string">","</span>))</span><br><span class="line"></span><br><span class="line">		<span class="keyword">val</span> attr_num: <span class="type">Int</span> = dataset.take(<span class="number">1</span>)(<span class="number">0</span>).length</span><br><span class="line">		<span class="comment">/* R Set contains all attributes' index */</span></span><br><span class="line">		<span class="keyword">val</span> <span class="type">R</span>: mutable.<span class="type">Set</span>[<span class="type">Int</span>] = mutable.<span class="type">Set</span>(<span class="number">1</span> to attr_num: _*)</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* cartesian */</span></span><br><span class="line">		<span class="keyword">val</span> cart = dataset.cartesian(dataset)</span><br><span class="line">		println (<span class="string">s"<span class="subst">$&#123;dataset.count()&#125;</span> =&gt; <span class="subst">$&#123;cart.count()&#125;</span>"</span>)</span><br><span class="line">		<span class="keyword">val</span> cart_test = sc.parallelize(cart.collect(),<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">val</span> neg_cover_dis = cart_test.map &#123; pair =&gt;</span><br><span class="line">			<span class="keyword">val</span> tuple_1 = pair._1</span><br><span class="line">			<span class="keyword">val</span> tuple_2 = pair._2</span><br><span class="line"></span><br><span class="line">			<span class="keyword">var</span> <span class="type">X</span>: mutable.<span class="type">Set</span>[<span class="type">Int</span>] = mutable.<span class="type">Set</span>()</span><br><span class="line">			<span class="keyword">var</span> <span class="type">A_buffer</span>: mutable.<span class="type">Set</span>[<span class="type">Int</span>] = mutable.<span class="type">Set</span>()</span><br><span class="line"></span><br><span class="line">			<span class="comment">// initialize X and A_buffer</span></span><br><span class="line">			<span class="keyword">for</span> (i &lt;- tuple_1.indices) &#123;</span><br><span class="line">				<span class="keyword">if</span> (tuple_1(i) == tuple_2(i)) &#123;</span><br><span class="line">					<span class="type">X</span> += i+<span class="number">1</span></span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="type">A_buffer</span> += i+<span class="number">1</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			(<span class="type">X</span>, <span class="type">A_buffer</span>)</span><br><span class="line"></span><br><span class="line">		&#125;.reduceByKey(_ ++ _)</span><br><span class="line">			.flatMap &#123; line =&gt;</span><br><span class="line">				line._2.map(a =&gt; (a, <span class="type">ArrayBuffer</span>[mutable.<span class="type">Set</span>[<span class="type">Int</span>]](line._1)))</span><br><span class="line">			&#125;.reduceByKey(_ ++ _)</span><br><span class="line">	    	.map &#123; line =&gt;   <span class="comment">// save the maximum neg_cover</span></span><br><span class="line">				<span class="keyword">val</span> new_set_buffer = line._2.clone()</span><br><span class="line">				<span class="keyword">for</span>(i &lt;- line._2.indices)&#123;</span><br><span class="line">					<span class="keyword">for</span>(j &lt;- i+<span class="number">1</span> until line._2.size)&#123;</span><br><span class="line">						<span class="keyword">if</span>(line._2(i) subsetOf line._2(j))&#123;</span><br><span class="line">							new_set_buffer -= line._2(i)</span><br><span class="line">						&#125;</span><br><span class="line">						<span class="keyword">else</span> <span class="keyword">if</span>(line._2(j) subsetOf line._2(i))&#123;</span><br><span class="line">							new_set_buffer -= line._2(j)</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				(line._1, new_set_buffer)</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		sc.broadcast(cart.collect())</span><br><span class="line"></span><br><span class="line">		<span class="keyword">val</span> pos_cover_dis = sc.parallelize(neg_cover_dis.collect(),<span class="number">1</span>) .map&#123; line =&gt;</span><br><span class="line">			<span class="keyword">val</span> key: <span class="type">Int</span> = line._1</span><br><span class="line">			<span class="keyword">val</span> arr: <span class="type">ArrayBuffer</span>[mutable.<span class="type">Set</span>[<span class="type">Int</span>]] = line._2</span><br><span class="line"></span><br><span class="line">			<span class="keyword">var</span> new_pos_sets = <span class="keyword">new</span> <span class="type">ArrayBuffer</span>[mutable.<span class="type">Set</span>[<span class="type">Int</span>]]()</span><br><span class="line">			new_pos_sets += mutable.<span class="type">Set</span>()</span><br><span class="line"></span><br><span class="line">			<span class="comment">/* for each prefix set of suffix 'key' */</span></span><br><span class="line">			arr.foreach(neg_set =&gt; &#123;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// new_pos_sets is equal to tmp</span></span><br><span class="line">				<span class="keyword">val</span> tmp = new_pos_sets.clone()</span><br><span class="line"></span><br><span class="line">				new_pos_sets.foreach(pos_set =&gt; &#123;</span><br><span class="line">					<span class="comment">/* if pos_set entails neg_set */</span></span><br><span class="line">					<span class="keyword">if</span>(pos_set subsetOf neg_set) &#123;</span><br><span class="line">						tmp -= pos_set</span><br><span class="line">						<span class="keyword">val</span> rest_set = <span class="type">R</span> -- neg_set - key</span><br><span class="line">						rest_set.foreach(rest_attr =&gt; &#123;</span><br><span class="line">							breakable &#123;</span><br><span class="line">								<span class="comment">/* prevent special condition */</span></span><br><span class="line">								<span class="comment">/* if set&#123;rest_attr&#125; is already in tmp</span></span><br><span class="line"><span class="comment">								 * conflicts will occur.*/</span></span><br><span class="line">								tmp.foreach(s =&gt; &#123;</span><br><span class="line">									<span class="keyword">if</span> (s == mutable.<span class="type">Set</span>(rest_attr))&#123;</span><br><span class="line">										<span class="keyword">break</span>()</span><br><span class="line">									&#125;</span><br><span class="line">								&#125;)</span><br><span class="line">								tmp += (pos_set + rest_attr)</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;)</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;)</span><br><span class="line"></span><br><span class="line">				new_pos_sets = tmp</span><br><span class="line">			&#125;)</span><br><span class="line">			(key, new_pos_sets)</span><br><span class="line">		&#125;.flatMap&#123; line =&gt;</span><br><span class="line">			line._2.map(s =&gt; (s, mutable.<span class="type">ArrayBuffer</span>(line._1)))</span><br><span class="line">		&#125;.reduceByKey(_ ++ _)</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		// collect the positive cover and save as file</span></span><br><span class="line"><span class="comment">		var pos_cover = pos_cover_dis.collect()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		// compensate for some cases like []: column i</span></span><br><span class="line"><span class="comment">		var idx_set: mutable.Set[Int] = mutable.Set()</span></span><br><span class="line"><span class="comment">		pos_cover.foreach(line =&gt; &#123;</span></span><br><span class="line"><span class="comment">			idx_set ++= line._2.toSet</span></span><br><span class="line"><span class="comment">		&#125;)</span></span><br><span class="line"><span class="comment">		idx_set = R -- idx_set</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		idx_set.foreach(i =&gt; &#123;</span></span><br><span class="line"><span class="comment">			pos_cover :+= (mutable.Set[Int](), ArrayBuffer(i))</span></span><br><span class="line"><span class="comment">		&#125;)*/</span></span><br><span class="line"></span><br><span class="line">		pos_cover_dis.map &#123; (result) =&gt;</span><br><span class="line">			<span class="keyword">val</span> left1 = result._1.toArray.sortBy(items =&gt; items).map(left =&gt; <span class="string">s"column<span class="subst">$left</span>"</span>).mkString(<span class="string">"["</span>,<span class="string">","</span>,<span class="string">"]"</span>)</span><br><span class="line">			<span class="keyword">val</span> right1 = result._2.sortBy(items =&gt; items).map(right =&gt; <span class="string">s"column<span class="subst">$right</span>"</span>).mkString(<span class="string">""</span>,<span class="string">","</span>,<span class="string">""</span>)</span><br><span class="line">			<span class="string">s"<span class="subst">$left1</span>:<span class="subst">$right1</span>"</span></span><br><span class="line">		&#125;.saveAsTextFile(resultPath)</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -410,369 +408,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/C++中引用与指针/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Caijianyu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="和光同尘">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/17/C++中引用与指针/" itemprop="url">C++中引用与指针</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-17T22:12:20+08:00">
-                2017-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/代码随录/" itemprop="url" rel="index">
-                    <span itemprop="name">代码随录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/17/C++中引用与指针/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/17/C++中引用与指针/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/12/17/C++中引用与指针/" class="leancloud_visitors" data-flag-title="C++中引用与指针">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>C++ 中引用 <code>&amp;</code> 与指针 <code>*</code> 是两个十分相似的概念，我之前在写 C++ 的时候，有时也会疑惑，到底什么时候该用引用，什么时候该用指针呢？</p>
-<p>指针来源于C语言，而 C++ 又是起源于C语言，所以 C++ 中自然保持了对指针的支持。这是 C++ 中指针存在的原因。</p>
-<p>那么既然有了指针，为什么 C++ 还要创造”引用“这个概念呢？引用的发明，是为了解决 <strong>运算符重载</strong> 的问题。举个例子，使用 C++ 定义了一个类 <code>ArrayLike</code>，我们希望这个类能像数组一样使用下标取元素，即 <code>arr[0]</code>。那么此时就需要对运算符 <code>[]</code> 进行重载。</p>
-<p>那么问题来了，重载的运算符的返回值是什么呢？假设 <code>ArrayLike</code> 储存的数据类型为 <code>int</code>，该运算符可以返回 <code>int</code> 类型，但有时我们希望通过下标赋值，如 <code>a[1]=2;</code>，此时 <code>int</code>作为返回值显然不合适，此时显然只能返回指针 <code>int*</code>。但若是返回 <code>int*</code>，则按下标取到的内容只是地址，所以还需要增加取值符来获取内容，如 <code>*(a[5])</code>。</p>
-<p>因此，引用被发明了出来。在运算符重载中，引用具有指针的可赋值功能，也无需对结果增加取值符。例子如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayLike</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span>* arr;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ArrayLike()&#123;...&#125;</span><br><span class="line">    ~ArrayLike()&#123;...&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// return int</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int*</span></span><br><span class="line">    <span class="keyword">int</span>* <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return int&amp;</span></span><br><span class="line">    <span class="keyword">int</span>&amp; <span class="keyword">operator</span>[](<span class="keyword">int</span> idx)&#123;</span><br><span class="line">        <span class="keyword">return</span> *arr[idx];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>当然，在实际应用中，引用和指针更多地被用于 <code>避免值拷贝</code>，在这一点上两者的功能十分相似。</p>
-<p>一、在声明变量时避免值拷贝。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use pointer</span></span><br><span class="line"><span class="keyword">int</span>* a_ptr = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use reference</span></span><br><span class="line"><span class="keyword">int</span>&amp; a_ref = a;</span><br></pre></td></tr></table></figure>
-<p>二、在传参时避免值拷贝</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pointer param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>* param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// reference param</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; param)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>在传参时避免值拷贝，是指针和引用作为参数被传递的重要原因之一。当然，这样传递参数有一个潜在的危险之处，即指针或引用的值可能会被悄悄修改。那么，如何避免这样的风险呢？这个时候，引用的优势就体现出来了。</p>
-<p>对于引用来说，直接使用 <code>const type&amp;</code> 作为参数即可。这就明确地说明了参数是不可修改的。</p>
-<p>而对于指针来说，则十分麻烦。<code>const type*</code> 只能避免指针不指向别的对象，但是不能阻止对指针指向的内存区域的值的修改，如</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>* int_ptr)</span></span>&#123;</span><br><span class="line">*int_ptr = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>除了以上的情形，与指针相比，引用还有一个优点。指针是可以为空的，即 <code>NULL</code>，那么此时如果对指针取值，则会报错。因此，指针是具有很大的潜在风险的。而引用就没有这个风险，引用在定义的时候就必须初始化，也就是说，引用总是引用某个存在的变量。实际上，引用内部的实现就是通过 <code>const type*</code> 来实现的。</p>
-<p>综上，何时该用指针？何时该用引用呢？在 StackOverflow 上看到了一句建议：</p>
-<blockquote>
-<p>Use reference when you can, use pointer when you must</p>
-</blockquote>
-<p>毕竟有些地方指针的作用还是难以替代的，例如多态中的强制类型转换。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/15/如何退出C++程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Caijianyu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="和光同尘">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/15/如何退出C++程序/" itemprop="url">如何退出C++程序</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-15T20:11:51+08:00">
-                2017-12-15
-              </time>
+              <a href="/2017/12/17/C++中引用与指针/" rel="next" title="C++中引用与指针">
+                <i class="fa fa-chevron-left"></i> C++中引用与指针
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/代码随录/" itemprop="url" rel="index">
-                    <span itemprop="name">代码随录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/15/如何退出C++程序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/15/如何退出C++程序/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/12/15/如何退出C++程序/" class="leancloud_visitors" data-flag-title="如何退出C++程序">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>在平时写 C++ 程序的时候，希望程序在条件异常的时候直接退出。而条件异常的捕获通常不是在 main 函数中完成的，那么此时该如何退出程序呢？</p>
-<p>如果在 main 函数中捕获了异常，直接 <code>return 1;</code> 即可，但是若在非 main 函数中，调用 <code>return;</code>则只会退出该函数。</p>
-<p>比较直观的一种做法就是直接调用 <code>exit(0);</code>，表示程序非正常退出。但实际上，这种做法并不安全。我们知道，在程序结束时，栈中所有的对象都会调用析构函数来释放内存空间。但是 <code>exit(0);</code> 则会直接退出程序，并不会去管栈中尚未释放的对象。</p>
-<p>要保证栈中的对象所占的内存空间被释放，则必须在 main 函数中调用 <code>return</code> 函数。因此最合理的做法是，在需要退出程序的地方调用 <code>throw exception();</code>，在 main 函数中则使用 try、catch，在 catch 块中调用 <code>return EXIT_FAILURE;</code></p>
-<p>其中 EXIT_FAILURE 在 <code>&lt;cstdlib&gt;</code> 头文件中定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXIT_SUCCESS 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXIT_FAILURE 1</span></span><br></pre></td></tr></table></figure>
-<p>示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> exception();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        a();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span>(<span class="keyword">const</span> exception&amp;)&#123;</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -782,10 +447,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -793,6 +459,17 @@
 
 
           
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+  
+
 
         </div>
         
@@ -813,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -880,6 +566,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数依赖"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x51FD;&#x6570;&#x4F9D;&#x8D56;" class="headerlink" title="&#x51FD;&#x6570;&#x4F9D;&#x8D56;"></a>&#x51FD;&#x6570;&#x4F9D;&#x8D56;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综述论文"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7EFC;&#x8FF0;&#x8BBA;&#x6587;" class="headerlink" title="&#x7EFC;&#x8FF0;&#x8BBA;&#x6587;"></a>&#x7EFC;&#x8FF0;&#x8BBA;&#x6587;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FDEP"><span class="nav-number">3.</span> <span class="nav-text"><a href="#FDEP" class="headerlink" title="FDEP"></a>FDEP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x7B97;&#x6CD5;&#x6D41;&#x7A0B;" class="headerlink" title="&#x7B97;&#x6CD5;&#x6D41;&#x7A0B;"></a>&#x7B97;&#x6CD5;&#x6D41;&#x7A0B;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Negative-Cover"><span class="nav-number">3.1.1.</span> <span class="nav-text"><a href="#Negative-Cover" class="headerlink" title="Negative Cover"></a>Negative Cover</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Positive-Cover"><span class="nav-number">3.1.2.</span> <span class="nav-text"><a href="#Positive-Cover" class="headerlink" title="Positive Cover"></a>Positive Cover</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x4EE3;&#x7801;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4EE3;&#x7801;&#x5B9E;&#x73B0;"></a>&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -999,6 +701,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -1016,6 +722,18 @@
       <script id="dsq-count-scr" src="https://hexo-github.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/01/07/一个有趣的函数依赖发现算法-FDEP/';
+          this.page.identifier = '2018/01/07/一个有趣的函数依赖发现算法-FDEP/';
+          this.page.title = '一个有趣的函数依赖发现算法: FDEP';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hexo-github.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
